@@ -1,0 +1,1 @@
+HOG_data = np.zeros([2 * 100, 3781], np.float32)
