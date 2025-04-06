@@ -1,0 +1,32 @@
+import matplotlib
+import cv2
+import numpy as np
+
+if __name__ == "__main__":
+    IP = cv2.imread ("input/in%06d.jpg" % 1 )
+    IP= cv2.cvtColor(IP,cv2.COLOR_BGR2GRAY)
+    for i in range (2,1100) :
+
+        Input = cv2.imread ("input/in%06d.jpg" % i )
+        I = cv2.cvtColor(Input,cv2.COLOR_BGR2GRAY)
+        substraction = cv2.absdiff(I,IP)
+        (thresh, ImageOutput) = cv2.threshold(substraction ,15,255 ,cv2.THRESH_BINARY )
+        kernel = np.ones((4,4), np.uint8)
+        kernel2 = np.ones((7,7), np.uint8)
+        ImageOutput = cv2.medianBlur(ImageOutput,5)
+        ImageOutput = cv2.erode(ImageOutput, kernel, iterations=1)
+        ImageOutput = cv2.dilate(ImageOutput, kernel2, iterations=1)
+        retval , labels , stats , centroids = cv2.connectedComponentsWithStats (ImageOutput)
+        if ( stats . shape [0] > 1) : # are there any objects
+            tab = stats [1: ,4] # 4 columns without first element
+            pi = np . argmax ( tab )# finding the index of the largest item
+            pi = pi + 1 # increment because we want the index in stats , not in tab
+            # drawing a bbox
+            cv2 . rectangle ( ImageOutput ,( stats [pi ,0] , stats [pi ,1]) ,( stats [ pi ,0]+ stats [ pi ,2] , stats [ pi
+            ,1]+ stats [ pi ,3]) ,(255 ,0 ,0) ,2)
+            # print information about the field and the number of the largest element
+            cv2.putText(ImageOutput, "%d" % pi, (np.int32(centroids[pi, 0]), np.int32(centroids[pi, 1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0))
+            cv2 . putText ( ImageOutput ,"%d" %pi ,( np.int32( centroids [ pi ,0]) ,np.int32( centroids [ pi ,1]) ) , cv2.FONT_HERSHEY_SIMPLEX ,1 ,(255 ,0 ,0) )
+        cv2.imshow ("Image output", ImageOutput )
+        cv2 . waitKey(10)
+        IP = I
