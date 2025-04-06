@@ -1,0 +1,1 @@
+cv2.medianBlur(ImageOutput,17)
