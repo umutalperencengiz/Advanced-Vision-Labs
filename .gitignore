@@ -1,2 +1,12 @@
-**/LAB3/trained_models/
-**/LAB3/utils/segmentation/hrnet_v2
+
+LAB3/trained_models/*.mdl
+LAB3/utils/segmentation/hrnet_v2/*.pth
+
+*.mdl
+*.weights
+*.pth
+*.txt
+trained_models/
+neural_network/
+utils/segmentation/hrnet_v2/
+Dynamic Vision Sensors/events.txt

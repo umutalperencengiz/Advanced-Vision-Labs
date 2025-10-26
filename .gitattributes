@@ -1,0 +1,4 @@
+LAB10/neural_network/yolov3_training_last_c.weights filter=lfs diff=lfs merge=lfs -text
+LAB10/neural_network/yolov3_training_last_f.weights filter=lfs diff=lfs merge=lfs -text
+LAB10/neural_network/yolov3_training_last_t.weights filter=lfs diff=lfs merge=lfs -text
+LAB13/events.txt filter=lfs diff=lfs merge=lfs -text
